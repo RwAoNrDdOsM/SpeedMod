@@ -1,0 +1,11 @@
+mod = [
+	"SpeedMod"
+]
+
+package = [
+	"resource_packages/SpeedMod/SpeedMod"
+]
+
+lua = [
+	"scripts/mods/SpeedMod/*"
+]
