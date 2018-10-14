@@ -83,9 +83,9 @@ function ActiveModsView:create_ui_elements()
   self._widgets = widgets
   self._widgets_by_name = widgets_by_name
 
-  self._widgets_by_name.title_text.content.text = "Activated Mods"
-  self._widgets_by_name.window_text.content.text = mod_table.name .. "\n"
-  self._widgets_by_name.window_text.style.text.font_size = mod.CurrentLoreFontSize
+  --self._widgets_by_name.title_text.content.text = "Activated Mods"
+  --self._widgets_by_name.window_text.content.text = mod_table.name .. "\n"
+  --self._widgets_by_name.window_text.style.text.font_size = mod.CurrentLoreFontSize
 
   UIRenderer.clear_scenegraph_queue(self.ui_renderer)
 end

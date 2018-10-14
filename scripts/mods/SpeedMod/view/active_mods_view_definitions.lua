@@ -1,7 +1,7 @@
 local window_default_settings = UISettings.game_start_windows
 local window_size = window_default_settings.large_window_size
 local window_top_height = 200
-local activated_mods
+local activated_mods = { }
 
 
 
@@ -215,7 +215,11 @@ local scenegraph_definition = {
   },
 }
 
---local activated_mods = activated_mods .. mod_table.name .. "\n"
+-- In the for loop
+table.insert(activated_mods, mod_table.name)
+
+-- And finally, concat it all, separated by newlines.
+activated_mods = table.concat(activated_mods, "\n")
 
 local disable_with_gamepad = true
 local widgets = {
@@ -247,7 +251,7 @@ local widgets = {
   title_bg = UIWidgets.create_background("title_bg", scenegraph_definition.title_bg.size, "menu_frame_bg_02"),
   -- TODO: Move to mod:localize
   title_text = UIWidgets.create_simple_text("Activated Mods", "title_text", nil, nil, title_text_style),
-  activated_mods_text = UIWidgets.create_simple_text(activated_mods, "activate_mods_text", nil, nil, window_text_style),
+  activated_mods_text = UIWidgets.create_simple_text(activated_mods, "activated_mods_text", nil, nil, window_text_style),
 }
 
 local generic_input_actions = {
