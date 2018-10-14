@@ -57,16 +57,9 @@ mod:hook(EndViewStateScore, "create_ui_elements", function(func, self, ...)
 end)
 
 mod.active_mods = function()
-    mod:pcall(function()
-        --mod.open_active_mods_view()
+    --mod:pcall(function()
         Managers.player:local_player().network_manager.matchmaking_manager._ingame_ui:handle_transition("active_mods_view")
-       --[[ for index, mod_table in ipairs(Managers.mod._mods) do
-            if mod_table.enabled then
-                mod:echo("%s", mod_table.name)
-                
-            end
-        end--]]
-	end)
+	--end)
 end
 
 mod:command("active_mods", mod:localize("active_mods_command_description"), function() mod.active_mods() end)

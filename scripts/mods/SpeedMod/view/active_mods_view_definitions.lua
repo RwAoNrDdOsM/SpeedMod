@@ -31,7 +31,7 @@ local window_text_style = {
   use_shadow = false,
   upper_case = false,
   localize = false,
-  font_size = 12,
+  font_size = 54,
   horizontal_alignment = "center",
   vertical_alignment = "center",
   dynamic_font_size = false,
@@ -39,9 +39,9 @@ local window_text_style = {
   font_type = "hell_shark_header",
   text_color = {
 		255,
-		20,
-		20,
-		20
+		255,
+		255,
+		255
 },
   offset = {
     0,
@@ -216,7 +216,11 @@ local scenegraph_definition = {
 }
 
 -- In the for loop
-table.insert(activated_mods, mod_table.name)
+for index, mod_table in ipairs(Managers.mod._mods) do
+  if mod_table.enabled then
+      table.insert(activated_mods, mod_table.name)
+  end
+end
 
 -- And finally, concat it all, separated by newlines.
 activated_mods = table.concat(activated_mods, "\n")
