@@ -57,7 +57,7 @@ mod:hook(EndViewStateScore, "create_ui_elements", function(func, self, ...)
 end)
 
 mod.active_mods = function() 
-  mod.open_active_mods_view
+  mod.open_active_mods_view()
 end
 
 mod:command("active_mods", mod:localize("active_mods_command_description"), function() mod.active_mods() end)
