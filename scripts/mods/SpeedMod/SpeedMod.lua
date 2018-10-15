@@ -18,12 +18,12 @@ local view_data = {
       inn = {},
       ingame = {},
     },
-    --[[ `settings_id`/`setting_name` which defines the keybind
+    --`settings_id`/`setting_name` which defines the keybind
     hotkey_name = "settings_id",
     -- has to be same value as the keybind setting's `action_name`
     hotkey_action_name = "open_active_mods_view",
     -- Some name that has to match with the key in `view_transitions`
-    hotkey_transition_name = "active_mods_view", --]]
+    hotkey_transition_name = "active_mods_view",
   },
   view_transitions = {
     active_mods_view = function (self)
@@ -56,15 +56,8 @@ mod:hook(EndViewStateScore, "create_ui_elements", function(func, self, ...)
     return func(self, ...)
 end)
 
-mod.active_mods = function()
-    mod:pcall(function()
-      --Managers.matchmaking.ingame_ui:handle_transition("active_mods_view")
-      local matchmaking = Managers.matchmaking
-      local _ingame_ui = matchmaking._ingame_ui
-      local handle_transition = _ingame_ui:handle_transition("active_mods_view")
-        --]]
-      --Managers.player:local_player().network_manager.matchmaking_manager._ingame_ui:handle_transition("active_mods_view")
-	end)
+mod.active_mods = function() 
+  mod.open_active_mods_view
 end
 
 mod:command("active_mods", mod:localize("active_mods_command_description"), function() mod.active_mods() end)
