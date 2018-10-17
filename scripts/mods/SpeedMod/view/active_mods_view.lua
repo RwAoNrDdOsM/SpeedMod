@@ -13,9 +13,8 @@ function ActiveModsView:init(ingame_ui_context)
   self.ui_renderer = ingame_ui_context.ui_renderer
   self.ui_top_renderer = ingame_ui_context.ui_top_renderer
   self.ingame_ui = ingame_ui_context.ingame_ui
-  self.statistics_db = ingame_ui_context.statistics_db
   self.render_settings = { snap_pixel_positions = true }
-
+  
   -- Create input service
   local input_manager = ingame_ui_context.input_manager
   self.input_manager = input_manager
@@ -59,11 +58,23 @@ end
 -- Called when view is closed
 function ActiveModsView:on_exit()
   local input_manager = self.input_manager
-  input_manager:device_unblock_all_services("keyboard", 1)
-  input_manager:device_unblock_all_services("mouse", 1)
-  input_manager:device_unblock_all_services("gamepad", 1)
-
-  ShowCursorStack.pop()
+  local is_in_inn = self.is_in_inn
+  local cutscene_system = Managers.state.entity:system("cutscene_system")
+  local active_cutscene = (cutscene_system.active_camera or self:unavailable_hero_popup_active()) and not cutscene_system.ingame_hud_enabled
+  
+  if not self.is_in_inn and active_cutscene then
+    input_manager:block_device_except_service("chat_input", "keyboard")
+    input_manager:block_device_except_service("chat_input", "mouse")
+    input_manager:block_device_except_service("chat_input", "gamepad")
+    ShowCursorStack.pop()
+  
+  else
+    input_manager:device_unblock_all_services("keyboard", 1)
+    input_manager:device_unblock_all_services("mouse", 1)
+    input_manager:device_unblock_all_services("gamepad", 1)
+    ShowCursorStack.pop()
+  
+  end
 end
 
 function ActiveModsView:create_ui_elements()
@@ -159,7 +170,8 @@ function ActiveModsView:_handle_input(dt)
 end
 
 function ActiveModsView:close_menu()
-  Managers.matchmaking.ingame_ui:handle_transition("exit_menu")
+  self:play_sound("Play_hud_hover")
+  self.ingame_ui:handle_transition("exit_menu")
 end
 
 function ActiveModsView:play_sound(event)
