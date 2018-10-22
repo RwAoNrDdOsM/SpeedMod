@@ -87,9 +87,7 @@ mod:hook(CutsceneUI, "set_letterbox_enabled", function(func, self, ...)
   local cutscene_system = Managers.state.entity:system("cutscene_system")
 
   if not self.is_in_inn and cutscene_system.active_camera then
-    if mod:get("example_checkbox") = true then
-      mod.active_mods()
-    end
+    mod.active_mods()
   end
   return func(self, ...)
 end)
