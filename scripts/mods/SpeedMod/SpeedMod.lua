@@ -48,13 +48,48 @@ mod:hook(DoorSystem, "update", function(func, self, context, t)
     return func(self, context, t)
 end)
 
+TerrorEventBlueprints.farmlands_rat_ogre = {
+  {
+    "set_master_event_running",
+    name = "farmlands_boss_barn"
+  },
+  {
+    "spawn_at_raw",
+    spawner_id = "farmlands_rat_ogre",
+    breed_name = {
+      "skaven_rat_ogre",
+      "skaven_stormfiend",
+      "chaos_troll",
+      "chaos_spawn"
+    }
+  },
+  {
+    "delay",
+    duration = 1
+  },
+  {
+    "flow_event",
+    flow_event_name = "farmlands_barn_boss_spawned"
+  },
+  {
+    "delay",
+    duration = 1
+  },
+  {
+    "flow_event",
+    flow_event_name = "farmlands_barn_boss_dead"
+  }
+}
+
 --Active Mods on cutscene
 mod:hook(CutsceneUI, "set_letterbox_enabled", function(func, self, ...)
   local is_in_inn = self.is_in_inn
   local cutscene_system = Managers.state.entity:system("cutscene_system")
 
   if not self.is_in_inn and cutscene_system.active_camera then
-    mod.active_mods()
+    if mod:get("example_checkbox") = true then
+      mod.active_mods()
+    end
   end
   return func(self, ...)
 end)
@@ -62,7 +97,6 @@ end)
 --Active Mods View Opening
 mod.active_mods = function() 
   ingame_ui:handle_transition("active_mods_view")
-  --mod:echo("Running active_mods command")
 end
 
 -- Active Mods Command
