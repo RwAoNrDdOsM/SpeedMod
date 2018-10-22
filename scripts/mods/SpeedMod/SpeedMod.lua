@@ -85,9 +85,13 @@ TerrorEventBlueprints.farmlands_rat_ogre = {
 mod:hook(CutsceneUI, "set_letterbox_enabled", function(func, self, ...)
   local is_in_inn = self.is_in_inn
   local cutscene_system = Managers.state.entity:system("cutscene_system")
+  local cutscene_menu = mod:get("example_checkbox")
 
-  if not self.is_in_inn and cutscene_system.active_camera then
-    mod.active_mods()
+
+  if not is_in_inn and cutscene_system.active_camera then
+    if cutscene_menu then
+      mod.active_mods()
+    end
   end
   return func(self, ...)
 end)
