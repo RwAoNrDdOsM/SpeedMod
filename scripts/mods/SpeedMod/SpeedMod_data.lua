@@ -9,10 +9,10 @@ return {
 	mutator_settings = {},                          -- Extra settings, if it's mutator
 	options_widgets = {                             -- Widget settings for the mod options menu
 		{
-			setting_id = "example_checkbox",
-			type = "checkbox",
-			text = mod:localize("example_checkbox_option_name"),
-			tooltip = mod:localize("example_checkbox_option_tooltip"),
+			setting_name = "cutscene_menu",
+			widget_type = "checkbox",
+			text = mod:localize("cutscene_menu_option_name"),
+			tooltip = mod:localize("cutscene_menu_option_tooltip"),
 			default_value = true,
 		}
 	}

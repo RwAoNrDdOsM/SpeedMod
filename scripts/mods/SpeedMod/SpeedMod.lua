@@ -1,7 +1,7 @@
 local mod = get_mod("SpeedMod")
 dofile("scripts/mods/SpeedMod/view/active_mods_view")
 
--- Custom view
+-- Active Mods Menu
 local view_data = {
   -- Any name may be chosen, but it has to be unique among all registered views
   view_name = "active_mods_view",
@@ -36,7 +36,9 @@ local view_data = {
 mod:register_new_view(view_data)
 
 
---From Prop Joe's Spawn Tweaks (Modified)
+--Boss Wall Removal--
+
+--This hook is from Prop Joe's Spawn Tweaks (Modified)
 mod:hook(DoorSystem, "update", function(func, self, context, t)
     if self.is_server then
         for map_section, _ in pairs(table.clone(self._active_groups)) do
@@ -81,11 +83,12 @@ TerrorEventBlueprints.farmlands_rat_ogre = {
   }
 }
 
---Active Mods on cutscene
+
+--Active Mods on Cutscene--
 mod:hook(CutsceneUI, "set_letterbox_enabled", function(func, self, ...)
   local is_in_inn = self.is_in_inn
   local cutscene_system = Managers.state.entity:system("cutscene_system")
-  local cutscene_menu = mod:get("example_checkbox")
+  local cutscene_menu = mod:get("cutscene_menu")
 
 
   if not is_in_inn and cutscene_system.active_camera then

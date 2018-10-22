@@ -60,7 +60,7 @@ function ActiveModsView:on_exit()
   local input_manager = self.input_manager
   local is_in_inn = self.is_in_inn
   local cutscene_system = Managers.state.entity:system("cutscene_system")
-  local active_cutscene = (cutscene_system.active_camera or self:unavailable_hero_popup_active()) and not cutscene_system.ingame_hud_enabled
+  local active_cutscene = cutscene_system.active_camera and not cutscene_system.ingame_hud_enabled
   
   if not self.is_in_inn and active_cutscene then
     input_manager:block_device_except_service("chat_input", "keyboard")
