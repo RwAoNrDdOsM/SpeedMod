@@ -84,7 +84,7 @@ TerrorEventBlueprints.farmlands_rat_ogre = {
 }
 
 
---Active Mods on Cutscene--
+--Active Mods on Cutscene
 mod:hook(CutsceneUI, "set_letterbox_enabled", function(func, self, ...)
   local is_in_inn = self.is_in_inn
   local cutscene_system = Managers.state.entity:system("cutscene_system")
@@ -104,5 +104,41 @@ mod.active_mods = function()
   ingame_ui:handle_transition("active_mods_view")
 end
 
--- Active Mods Command
+
+--Restart Level
+--Taken from Propjoe's Github "Restart Level Command"
+mod.do_insta_fail = false
+
+mod.restart_level = function()
+	mod:pcall(function()
+		if Managers.state.game_mode:level_key() == "inn_level" then
+			mod:echo("Can't restart in the keep.")
+			return
+		end
+
+		mod.do_insta_fail = true
+		Managers.state.game_mode:fail_level()
+	end)
+end
+
+mod:hook(GameModeAdventure, "evaluate_end_conditions", function(func, self, round_started, dt, t)
+	local restart = false
+	if self.lost_condition_timer and mod.do_insta_fail then
+		mod.do_insta_fail = false
+		self.lost_condition_timer = t - 1
+		restart = true
+	end
+
+	local ended, reason = func(self, round_started, dt, t)
+
+	if ended and restart then
+		return ended, "reload"
+	end
+
+	return ended, reason
+end)
+
+
+--Commands
 mod:command("active_mods", mod:localize("active_mods_command_description"), function() mod.active_mods() end)
+mod:command("ree", mod:localize("ree_command_description"), function() mod.restart_level() end)
