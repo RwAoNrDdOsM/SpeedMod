@@ -27,29 +27,6 @@ local title_text_style = {
   }
 }
 
-local window_text_style = {
-  use_shadow = false,
-  upper_case = false,
-  localize = false,
-  font_size = 54,
-  horizontal_alignment = "center",
-  vertical_alignment = "center",
-  dynamic_font_size = false,
-  word_wrap = true,
-  font_type = "hell_shark_header",
-  text_color = {
-		255,
-		255,
-		255,
-		255
-},
-  offset = {
-    0,
-    0,
-    2
-  }
-}
-
 local scenegraph_definition = {
   root = {
     is_root = true,
@@ -224,6 +201,32 @@ end
 
 -- And finally, concat it all, separated by newlines.
 activated_mods = table.concat(activated_mods, "\n")
+
+local window_text_style_font_size = 22
+
+local window_text_style = {
+  use_shadow = false,
+  upper_case = false,
+  localize = false,
+  font_size = window_text_style_font_size, 
+  horizontal_alignment = "center",
+  vertical_alignment = "center",
+  dynamic_font_size = false,
+  word_wrap = true,
+  font_type = "hell_shark_header",
+  text_color = {
+		255,
+		255,
+		255,
+		255
+},
+  offset = {
+    0,
+    0,
+    2
+  }
+}
+
 
 local disable_with_gamepad = true
 local widgets = {
